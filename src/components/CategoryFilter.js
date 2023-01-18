@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useState} from "react";
 
-function CategoryFilter() {
+function CategoryFilter({data, filter}) {
+
+  const [clickedId, setClickedId] = useState(null)
+
+  function btnClick(event){
+     setClickedId(Number(event.target.id));
+     filter(event.target.textContent)
+  }
+
   return (
     <div className="categories">
       <h5>Category filters</h5>
-      {/* render <button> elements for each category here */}
+      {
+        data.map((item, index) => {
+          return <button id={index} onClick={btnClick} className={clickedId === index ? "selected" : null } key={item}>{item}</button>
+        })
+      }
     </div>
   );
 }
