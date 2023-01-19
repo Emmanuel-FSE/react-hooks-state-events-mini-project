@@ -1,12 +1,24 @@
 import React, {useState} from "react";
 
-function CategoryFilter({data, filter}) {
+function CategoryFilter({data, filter, taskDataIn}) {
 
   const [clickedId, setClickedId] = useState(null)
+  const [task, setTask] = useState(taskDataIn)
 
   function btnClick(event){
      setClickedId(Number(event.target.id));
-     filter(event.target.textContent)
+     const name = event.target.textContent;
+     const newData = task.filter((item) => {
+      if (name === "All") {
+        return true
+      } else {
+        return item.category.includes(name)
+      }
+      // return item.category.includes(name);
+      
+    })
+    setTask(newData);
+    filter(task);
   }
 
   return (

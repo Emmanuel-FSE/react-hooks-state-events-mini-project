@@ -8,19 +8,25 @@ console.log({CATEGORIES});
 console.log({ TASKS });
 
 function App() {
-   const [cat, setCat] = useState("All")
-   const [catRender, setCatRender] = useState(true)
-   function filterCat(name){
-    setCat(name);
-    setCatRender(!catRender)
+  const [dataIn, setDataIn] = useState(TASKS)
+   function filterCat(data){
+    setDataIn(data);
    }
 
+
+function newFormData(data){
+  setDataIn([...dataIn, data])
+}
+
+function stateIn(data){
+  setDataIn(data)
+}
   return (
     <div className="App">
       <h2>My tasks</h2>
-      <CategoryFilter data={CATEGORIES} filter={filterCat}/>
-      <NewTaskForm />
-      <TaskList catName={cat} catRender={catRender} taskData={TASKS}/>
+      <CategoryFilter data={CATEGORIES} taskDataIn={dataIn} filter={filterCat}/>
+      <NewTaskForm data={CATEGORIES} onTaskFormSubmit={newFormData}/>
+      <TaskList taskData={dataIn} dataInState={stateIn}/>
     </div>
   );
 }
